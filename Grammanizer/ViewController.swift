@@ -33,6 +33,12 @@ class ViewController: UIViewController {
 	var solutions = [NLTag : Int]()
 	var currentQuestion: NLTag?
 	var scoreCounter = 0
+    var questions: [String] = [] {
+        didSet {
+            loadQuestion()
+            updateQuestion()
+        }
+    }
 
 	/*
 	MARK:- Lifecycle
@@ -40,43 +46,29 @@ class ViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		loadQuestion()
-        stackView.delegate = self
-        updateQuestion()
         winView.isHidden = true
         nextButton.isEnabled = false
         nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.3)
+        stackView.delegate = self
+        getQuestions()
 	}
 
-	enum Question: String {
-		case sam
-		case dog
-		case chicken
-
-		var next: Question {
-			switch self {
-			case .sam: return .dog
-			case .dog: return .chicken
-			case .chicken: return .sam
-			}
-		}
+    // MARK: - Helpers
+    
+    private var questionCounter: Int = 0
+    
+	private func loadQuestion() {
+        if questionCounter >= questions.count {
+            questionCounter = 0
+        }
+		let question = questions[questionCounter]
+        tag(text: question)
+        questionCounter += 1
 	}
+    
+    private let tagger: NLTagger = NLTagger(tagSchemes: [.lexicalClass])
 
-	var question = Question.sam
-
-	func loadQuestion() {
-		guard let path = Bundle.main.path(forResource: question.rawValue, ofType: "txt") else { return }
-		do {
-			let sampleText = try String.init(contentsOfFile: path, encoding: .utf8)
-			tag(text: sampleText)
-		} catch let error {
-			print(error)
-		}
-		question = question.next
-	}
-
-	func tag(text: String) {
-		let tagger = NLTagger(tagSchemes: [.lexicalClass])
+	private func tag(text: String) {
 		tagger.string = text
 		let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
         var info = [ButtonInfo]()
@@ -90,15 +82,16 @@ class ViewController: UIViewController {
 				let title = String(text[tokenRange])
                 info.append((tag, title))
                 tags.insert(tag)
+                print(title, tag.rawValue)
 			}
 			return true
 		}
         stackView.addButtons(with: info)
 	}
 
-	var tags = Set<NLTag>()
-
-	func updateQuestion() {
+	private var tags = Set<NLTag>()
+    
+    private func updateQuestion() {
         guard let tag = tags.first else {
             nextButton.isEnabled = true
             nextButton.backgroundColor = .white
@@ -107,13 +100,13 @@ class ViewController: UIViewController {
             return
         }
         tags.removeFirst()
-		currentQuestion = tag
-		instructions.text = "Find the \(tag.rawValue)'s."
-		score.text = "0/\(solutions[tag]!)"
-		scoreCounter = 0
-	}
+        currentQuestion = tag
+        instructions.text = "Find the \(tag.rawValue)'s."
+        score.text = "0/\(solutions[tag]!)"
+        scoreCounter = 0
+    }
     
-    func toggleWinView(enabled: Bool) {
+    private func toggleWinView(enabled: Bool) {
         if enabled {
             winView.transform = CGAffineTransform.init(scaleX: 0.1, y: 0.1)
             winView.isHidden = false
@@ -125,7 +118,7 @@ class ViewController: UIViewController {
         }
     }
 
-	func reset() {
+	private func reset() {
         questionView.isHidden = false
         nextButton.isEnabled = false
         nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.3)
@@ -136,6 +129,15 @@ class ViewController: UIViewController {
         loadQuestion()
         updateQuestion()
 	}
+    
+    private func getQuestions() {
+        questions = [
+            "I, funny Sam, am playing happily and friendly at school at noon. Wow!",
+            "The cat climbs a tree to search for a chicken",
+            "Io sto camminando al supermercado mentre mangiando una mela",
+            "The quick brown fox jumps over the lazy dog"
+        ]
+    }
 }
 
 extension ViewController: Delegate {

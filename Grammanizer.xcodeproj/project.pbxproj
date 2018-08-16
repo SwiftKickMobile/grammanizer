@@ -12,9 +12,6 @@
 		3C361AF620F902D800D6C685 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C361AF420F902D800D6C685 /* Main.storyboard */; };
 		3C361AF820F902D900D6C685 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C361AF720F902D900D6C685 /* Assets.xcassets */; };
 		3C361AFB20F902D900D6C685 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C361AF920F902D900D6C685 /* LaunchScreen.storyboard */; };
-		3C361B0320F9074700D6C685 /* sam.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3C361B0220F9074700D6C685 /* sam.txt */; };
-		3C361B0720F9404400D6C685 /* chicken.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3C361B0620F9404400D6C685 /* chicken.txt */; };
-		3C361B0920F9405C00D6C685 /* dog.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3C361B0820F9405C00D6C685 /* dog.txt */; };
 		8287901820FF9DE400B73ABE /* WrappingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8287901720FF9DE400B73ABE /* WrappingStackView.swift */; };
 /* End PBXBuildFile section */
 
@@ -26,9 +23,6 @@
 		3C361AF720F902D900D6C685 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C361AFA20F902D900D6C685 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C361AFC20F902D900D6C685 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3C361B0220F9074700D6C685 /* sam.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = sam.txt; sourceTree = "<group>"; };
-		3C361B0620F9404400D6C685 /* chicken.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = chicken.txt; sourceTree = "<group>"; };
-		3C361B0820F9405C00D6C685 /* dog.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = dog.txt; sourceTree = "<group>"; };
 		8287901720FF9DE400B73ABE /* WrappingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,9 +60,6 @@
 				3C361AF220F902D800D6C685 /* ViewController.swift */,
 				8287901720FF9DE400B73ABE /* WrappingStackView.swift */,
 				3C361AF720F902D900D6C685 /* Assets.xcassets */,
-				3C361B0220F9074700D6C685 /* sam.txt */,
-				3C361B0620F9404400D6C685 /* chicken.txt */,
-				3C361B0820F9405C00D6C685 /* dog.txt */,
 				3C361AFC20F902D900D6C685 /* Info.plist */,
 				3C361AF920F902D900D6C685 /* LaunchScreen.storyboard */,
 				3C361AF420F902D800D6C685 /* Main.storyboard */,
@@ -136,10 +127,7 @@
 			files = (
 				3C361AFB20F902D900D6C685 /* LaunchScreen.storyboard in Resources */,
 				3C361AF820F902D900D6C685 /* Assets.xcassets in Resources */,
-				3C361B0720F9404400D6C685 /* chicken.txt in Resources */,
-				3C361B0920F9405C00D6C685 /* dog.txt in Resources */,
 				3C361AF620F902D800D6C685 /* Main.storyboard in Resources */,
-				3C361B0320F9074700D6C685 /* sam.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

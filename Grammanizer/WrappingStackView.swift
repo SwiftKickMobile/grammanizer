@@ -46,11 +46,9 @@ class WrappingStackView: UIView {
         var width: CGFloat = 0
         
         for buttonInfo in buttonInfos {
-            
             // create button
             let button = createButton(with: buttonInfo)
             width += button.intrinsicContentSize.width + 8
-            
             // Check if first row of buttons
             if stackView.arrangedSubviews.count <= 0 {
                 addHorizontalStackView()
@@ -60,7 +58,6 @@ class WrappingStackView: UIView {
                 addHorizontalStackView()
                 width = button.intrinsicContentSize.width + 8
             }
-            
             // add button
             (stackView.arrangedSubviews.last as? UIStackView)?.addArrangedSubview(button)
         }
