@@ -134,7 +134,7 @@ class ViewController: UIViewController {
         questions = [
             "I, funny Sam, am playing happily and friendly at school at noon. Wow!",
             "The cat climbs a tree to search for a chicken",
-            "Io sto camminando al supermercado mentre mangiando una mela",
+            "Io sto camminando al supermercato mentre mangiando una mela",
             "The quick brown fox jumps over the lazy dog"
         ]
     }
