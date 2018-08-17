@@ -7,23 +7,16 @@
 //
 
 import UIKit
-import NaturalLanguage
 
-protocol WrappingStackViewDelegate: class {
+protocol WrappingButtonViewDelegate: class {
     func buttonPressed(_ sender: TagButton)
 }
-
-class TagButton: UIButton {
-    var nlTag: NLTag = .other
-}
-
-typealias ButtonInfo = (tag: NLTag, title: String)
 
 class WrappingButtonView: UIView {
     
     // MARK: - API
     
-    weak var delegate: WrappingStackViewDelegate?
+    weak var delegate: WrappingButtonViewDelegate?
     
     var buttons = [ButtonInfo]() {
         didSet {
@@ -38,6 +31,8 @@ class WrappingButtonView: UIView {
     }
     
     // MARK: - Properties
+    
+    private let spacing: CGFloat = 8
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -68,7 +63,7 @@ class WrappingButtonView: UIView {
         for buttonConfig in buttonConfigs {
             // create button
             let button = createButton(with: buttonConfig)
-            width += button.intrinsicContentSize.width + 8
+            width += button.intrinsicContentSize.width + spacing
             // Check if first row of buttons
             if stackView.arrangedSubviews.count <= 0 {
                 addHorizontalStackView()
@@ -76,7 +71,7 @@ class WrappingButtonView: UIView {
             // check if width is greater than view width
             if width >= bounds.width {
                 addHorizontalStackView()
-                width = button.intrinsicContentSize.width + 8
+                width = button.intrinsicContentSize.width + spacing
             }
             // add button
             (stackView.arrangedSubviews.last as? UIStackView)?.addArrangedSubview(button)
@@ -86,7 +81,7 @@ class WrappingButtonView: UIView {
     private func addHorizontalStackView() {
         let sv = UIStackView()
         sv.axis = .horizontal
-        sv.spacing = 8
+        sv.spacing = spacing
         sv.alignment = .leading
         stackView.addArrangedSubview(sv)
     }

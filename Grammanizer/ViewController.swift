@@ -149,7 +149,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - Delegation
-extension ViewController: WrappingStackViewDelegate {
+extension ViewController: WrappingButtonViewDelegate {
     func buttonPressed(_ sender: TagButton) {
         guard let currentQuestion = currentQuestion, currentQuestion == sender.nlTag else { return }
         sender.isEnabled = false
