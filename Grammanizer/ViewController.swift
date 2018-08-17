@@ -18,9 +18,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var questionView: UIView!
     @IBOutlet weak var winView: UIView!
     @IBOutlet weak var instructions: UILabel!
-    @IBOutlet weak var stackView: WrappingStackView!
+    @IBOutlet weak var stackView: WrappingButtonView!
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var nextButton: UIButton!
+    
+    // MARK: - Actions
     
 	@IBAction func next(_ sender: Any) {
 		reset()
@@ -48,10 +50,18 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
         winView.isHidden = true
         nextButton.isEnabled = false
-        nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         stackView.delegate = self
-        getQuestions()
 	}
+
+    var didLayoutOnce = false
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !didLayoutOnce {
+            getQuestions()
+            didLayoutOnce = true
+        }
+    }
 
     // MARK: - Helpers
     
@@ -71,22 +81,22 @@ class ViewController: UIViewController {
 	private func tag(text: String) {
 		tagger.string = text
 		let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace]
-        var info = [ButtonInfo]()
-		tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
-			if let tag = tag {
-				if let _ = solutions[tag] {
-					solutions[tag]! += 1
-				} else {
-					solutions[tag] = 1
-				}
-				let title = String(text[tokenRange])
-                info.append((tag, title))
-                tags.insert(tag)
-                print(title, tag.rawValue)
-			}
-			return true
-		}
-        stackView.addButtons(with: info)
+        var buttons = [ButtonInfo]()
+        tagger.enumerateTags(in: text.startIndex..<text.endIndex, unit: .word, scheme: .lexicalClass, options: options) { tag, tokenRange in
+            guard let tag = tag else {
+                return false
+            }
+            if let _ = solutions[tag] {
+                solutions[tag]! += 1
+            } else {
+                solutions[tag] = 1
+            }
+            let title = String(text[tokenRange])
+            buttons.append((tag, title))
+            tags.insert(tag)
+            return true
+        }
+        stackView.buttons = buttons
 	}
 
 	private var tags = Set<NLTag>()
@@ -94,7 +104,6 @@ class ViewController: UIViewController {
     private func updateQuestion() {
         guard let tag = tags.first else {
             nextButton.isEnabled = true
-            nextButton.backgroundColor = .white
             questionView.isHidden = true
             toggleWinView(enabled: true)
             return
@@ -108,10 +117,10 @@ class ViewController: UIViewController {
     
     private func toggleWinView(enabled: Bool) {
         if enabled {
-            winView.transform = CGAffineTransform.init(scaleX: 0.1, y: 0.1)
+            winView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             winView.isHidden = false
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 2, options: [], animations: {
-                self.winView.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+                self.winView.transform = .identity
             }, completion: nil)
         } else {
             winView.isHidden = true
@@ -121,7 +130,6 @@ class ViewController: UIViewController {
 	private func reset() {
         questionView.isHidden = false
         nextButton.isEnabled = false
-        nextButton.backgroundColor = UIColor.white.withAlphaComponent(0.3)
         toggleWinView(enabled: false)
 		solutions.removeAll()
 		scoreCounter = 0
@@ -140,8 +148,9 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: Delegate {
-    func onSelect(_ sender: TagButton) {
+// MARK: - Delegation
+extension ViewController: WrappingStackViewDelegate {
+    func buttonPressed(_ sender: TagButton) {
         guard let currentQuestion = currentQuestion, currentQuestion == sender.nlTag else { return }
         sender.isEnabled = false
         scoreCounter += 1

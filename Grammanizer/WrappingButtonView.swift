@@ -9,8 +9,8 @@
 import UIKit
 import NaturalLanguage
 
-protocol Delegate: class {
-    func onSelect(_ sender: TagButton)
+protocol WrappingStackViewDelegate: class {
+    func buttonPressed(_ sender: TagButton)
 }
 
 class TagButton: UIButton {
@@ -19,11 +19,27 @@ class TagButton: UIButton {
 
 typealias ButtonInfo = (tag: NLTag, title: String)
 
-class WrappingStackView: UIView {
+class WrappingButtonView: UIView {
     
-    weak var delegate: Delegate?
+    // MARK: - API
     
-    let stackView: UIStackView = {
+    weak var delegate: WrappingStackViewDelegate?
+    
+    var buttons = [ButtonInfo]() {
+        didSet {
+            addButtons(with: buttons)
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @objc func onSelect(_ sender: TagButton) {
+        delegate?.buttonPressed(sender)
+    }
+    
+    // MARK: - Properties
+    
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -31,13 +47,17 @@ class WrappingStackView: UIView {
         return stackView
     }()
     
+    // MARK: - Lifecycle
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         addSubview(stackView)
         stackView.pinEdges(to: self)
     }
     
-    func addButtons(with buttonInfos: [ButtonInfo]) {
+    // MARK: - Helpers
+    
+    private func addButtons(with buttonConfigs: [ButtonInfo]) {
         
         stackView.arrangedSubviews.forEach { subview in
             subview.removeFromSuperview()
@@ -45,9 +65,9 @@ class WrappingStackView: UIView {
         
         var width: CGFloat = 0
         
-        for buttonInfo in buttonInfos {
+        for buttonConfig in buttonConfigs {
             // create button
-            let button = createButton(with: buttonInfo)
+            let button = createButton(with: buttonConfig)
             width += button.intrinsicContentSize.width + 8
             // Check if first row of buttons
             if stackView.arrangedSubviews.count <= 0 {
@@ -79,10 +99,6 @@ class WrappingStackView: UIView {
         button.nlTag = buttonInfo.tag
         button.addTarget(self, action: #selector(onSelect), for: .touchUpInside)
         return button
-    }
-    
-    @objc func onSelect(_ sender: TagButton) {
-        delegate?.onSelect(sender)
     }
 }
 
