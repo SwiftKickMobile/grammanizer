@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var stackView: WrappingButtonView!
     @IBOutlet weak var score: UILabel!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var checkbox: UILabel!
     
     // MARK: - Actions
     
@@ -155,7 +156,12 @@ extension ViewController: WrappingButtonViewDelegate {
         sender.isEnabled = false
         scoreCounter += 1
         if scoreCounter >= solutions[currentQuestion]! {
-            updateQuestion()
+            score.text = "\(scoreCounter)/\(solutions[currentQuestion]!)"
+            checkbox.isHidden = false
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.checkbox.isHidden = true
+                self.updateQuestion()
+            }
         } else {
             score.text = "\(scoreCounter)/\(solutions[currentQuestion]!)"
         }

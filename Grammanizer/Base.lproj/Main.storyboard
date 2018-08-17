@@ -40,7 +40,7 @@
                                 <rect key="frame" x="24" y="47.999999999999993" width="366" height="107.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6k-k7-Csg">
-                                        <rect key="frame" x="24" y="63.333333333333329" width="318" height="18"/>
+                                        <rect key="frame" x="24" y="63.333333333333329" width="271" height="18"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <color key="textColor" red="0.11764705882352941" green="0.5607843137254902" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -51,13 +51,21 @@
                                         <color key="textColor" red="0.18431372549019609" green="0.25882352941176467" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="✅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yk3-lt-SH1">
+                                        <rect key="frame" x="319" y="63.333333333333336" width="23" height="20.333333333333336"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="C6k-k7-Csg" firstAttribute="leading" secondItem="fy3-t3-TsN" secondAttribute="leading" constant="24" id="1nE-Yb-g2b"/>
                                     <constraint firstItem="InI-dY-5dn" firstAttribute="centerX" secondItem="fy3-t3-TsN" secondAttribute="centerX" id="BgO-oy-hxD"/>
-                                    <constraint firstItem="C6k-k7-Csg" firstAttribute="centerX" secondItem="fy3-t3-TsN" secondAttribute="centerX" id="Bvl-st-g4l"/>
+                                    <constraint firstItem="yk3-lt-SH1" firstAttribute="leading" secondItem="C6k-k7-Csg" secondAttribute="trailing" constant="24" id="FcU-xo-NOu"/>
                                     <constraint firstItem="InI-dY-5dn" firstAttribute="leading" secondItem="fy3-t3-TsN" secondAttribute="leading" constant="24" id="Fpj-Hy-DAc"/>
+                                    <constraint firstAttribute="trailing" secondItem="yk3-lt-SH1" secondAttribute="trailing" constant="24" id="RUu-DD-lZO"/>
+                                    <constraint firstItem="yk3-lt-SH1" firstAttribute="top" secondItem="C6k-k7-Csg" secondAttribute="top" id="Wc5-i6-7fO"/>
                                     <constraint firstAttribute="bottom" secondItem="C6k-k7-Csg" secondAttribute="bottom" constant="26" id="cw2-oc-nlf"/>
                                     <constraint firstItem="C6k-k7-Csg" firstAttribute="top" secondItem="InI-dY-5dn" secondAttribute="bottom" constant="12" id="fyA-8N-ISU"/>
                                     <constraint firstItem="InI-dY-5dn" firstAttribute="top" secondItem="fy3-t3-TsN" secondAttribute="top" constant="26" id="iBc-ic-t6Y"/>
@@ -122,6 +130,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Grammar" id="UgM-G2-P1H"/>
                     <connections>
+                        <outlet property="checkbox" destination="yk3-lt-SH1" id="Q1Y-hF-P0n"/>
                         <outlet property="instructions" destination="InI-dY-5dn" id="yCP-55-Pbs"/>
                         <outlet property="nextButton" destination="FNv-QU-QPS" id="SYC-0m-HZd"/>
                         <outlet property="questionView" destination="fy3-t3-TsN" id="dpb-38-G3X"/>
