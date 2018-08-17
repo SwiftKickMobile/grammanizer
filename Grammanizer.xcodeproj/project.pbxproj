@@ -61,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				3C361AF020F902D800D6C685 /* AppDelegate.swift */,
+				82ED5E3D21271E2100F89824 /* NextButton.swift */,
 				82ED5E3F212724BB00F89824 /* TagButton.swift */,
 				3C361AF220F902D800D6C685 /* ViewController.swift */,
 				8287901720FF9DE400B73ABE /* WrappingButtonView.swift */,
@@ -68,7 +69,6 @@
 				3C361AFC20F902D900D6C685 /* Info.plist */,
 				3C361AF920F902D900D6C685 /* LaunchScreen.storyboard */,
 				3C361AF420F902D800D6C685 /* Main.storyboard */,
-				82ED5E3D21271E2100F89824 /* NextButton.swift */,
 			);
 			path = Grammanizer;
 			sourceTree = "<group>";

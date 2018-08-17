@@ -1,5 +1,5 @@
 //
-//  WrappingStackView.swift
+//  WrappingButtonView.swift
 //  Grammanizer
 //
 //  Created by Travis Buttaccio on 7/18/18.
@@ -20,7 +20,7 @@ class WrappingButtonView: UIView {
     
     var buttons = [ButtonInfo]() {
         didSet {
-            addButtons(with: buttons)
+            addButtons(buttons)
         }
     }
     
@@ -52,7 +52,7 @@ class WrappingButtonView: UIView {
     
     // MARK: - Helpers
     
-    private func addButtons(with buttonConfigs: [ButtonInfo]) {
+    private func addButtons(_ buttonConfigs: [ButtonInfo]) {
         
         stackView.arrangedSubviews.forEach { subview in
             subview.removeFromSuperview()
